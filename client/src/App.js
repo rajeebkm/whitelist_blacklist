@@ -4,6 +4,8 @@ import PurchaseTokens from "./components/purchaseTokens.js";
 import WhitelistBlacklist from "./components/WhitelistBlacklist.js";
 import logo from "./logo-main.png";
 import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 // import { ethers } from "ethers";
 const ethers = require("ethers");
 
@@ -17,6 +19,7 @@ function App() {
     contract: null,
   });
   const [isConnected, setIsConnected] = useState(false);
+  const [balanceXALTS, setBalanceXALTS] = useState(null);
 
   useEffect(() => {
     if (window.ethereum) {
@@ -54,6 +57,13 @@ function App() {
         const accountAddress = await signer.getAddress();
         setAccount(accountAddress);
         setState({ provider, signer, contract });
+        const balanceOfTokens = await contract.balanceOf(
+          await signer.getAddress()
+        );
+        console.log(
+          `Token balance of user ${await signer.getAddress()} is ${balanceOfTokens}`
+        );
+        setBalanceXALTS(parseInt(balanceOfTokens)/ethers.utils.parseEther("1"));
       } catch (err) {
         console.error(err);
         setErrorMessage("There was a problem connecting to MetaMask");
@@ -94,14 +104,14 @@ function App() {
     <div
       style={{ backgroundColor: "#EFEFEF", height: "100%", marginTop: "0px" }}
     >
+      <Header />
       <div>
         {isConnected ? (
           <div>
-            {/* <p>Connected Wallet:</p> */}
             <button
               style={{
-                marginLeft: "1280px",
-                marginTop: "8px",
+                marginLeft: "1298px",
+                marginTop: "-55px",
                 backgroundColor: "green",
               }}
               className="block-button"
@@ -111,7 +121,7 @@ function App() {
           </div>
         ) : (
           <button
-            style={{ marginLeft: "1280px", marginTop: "8px" }}
+            style={{ marginLeft: "1280px", marginTop: "-55px" }}
             className="block-button"
             onClick={connectWallet}
           >
@@ -119,22 +129,25 @@ function App() {
           </button>
         )}
       </div>
-      <p style={{ marginLeft: "934px", marginTop: "5px" }}>
+      <p style={{ marginLeft: "810px", marginTop: "-40px", color: "white" }}>
         Account: {account}
       </p>
-      <p style={{ marginLeft: "934px", marginTop: "-20px" }}>
+      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white" }}>
         ETH Balance: {balance}
       </p>
-      <img
+      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white" }}>
+        XALTS Balance: {balanceXALTS}
+      </p>
+      {/* <img
         src={logo}
         width="6%"
         height="6%"
         style={{ marginLeft: "10px", marginTop: "0px" }}
-      />
+      /> */}
       <h2
         style={{
           marginLeft: "406px",
-          color: "Blue",
+          color: "#2b1247",
           marginTop: "0px",
           fontSize: "35px",
         }}
@@ -145,6 +158,7 @@ function App() {
         <WhitelistBlacklist state={state} />
         <PurchaseTokens state={state} />
       </div>
+      <Footer />
     </div>
   );
 }
