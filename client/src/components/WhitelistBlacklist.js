@@ -55,7 +55,6 @@ const WhitelistBlacklist = ({ state }) => {
     const isValidAddress = ethers.utils.isAddress(wallet);
     if (isValidAddress) {
       const transaction = await contract.isWhitelisted(wallet);
-      await transaction.wait();
       console.log(transaction);
       setWalletStatus(transaction);
       setErrorMessage(false);
@@ -76,7 +75,7 @@ const WhitelistBlacklist = ({ state }) => {
               value={inputValueWhitelist}
               onChange={handleInputChangeWhitelist}
               className="form-control"
-              placeholder="Enter Addresses"
+              placeholder="Enter addresses to whitelist"
             />
           </div>
           <button
@@ -88,7 +87,7 @@ const WhitelistBlacklist = ({ state }) => {
             Whitelist
           </button>
         </form>
-        <form onSubmit={blacklist}>
+        <form style={{ marginTop: "10px" }} onSubmit={blacklist}>
           <div className="mb-3">
             <label className="form-label">Addresses to Blacklist</label>
             <input
@@ -96,11 +95,11 @@ const WhitelistBlacklist = ({ state }) => {
               value={inputValueBlacklist}
               onChange={handleInputChangeBlacklist}
               className="form-control"
-              placeholder="Enter Addresses"
+              placeholder="Enter addresses to blacklist"
             />
           </div>
           <button
-            onClick={processInputToArrayWhitelist}
+            onClick={processInputToArrayBlacklist}
             type="submit"
             className="btn btn-danger"
             disabled={!state.contract}
@@ -108,7 +107,7 @@ const WhitelistBlacklist = ({ state }) => {
             Blacklist
           </button>
         </form>
-        <form onSubmit={checkWalletStatus}>
+        <form style={{ marginTop: "15px" }} onSubmit={checkWalletStatus}>
           <div className="mb-3">
             <label className="form-label">Check Wallet Status</label>
             <input
@@ -118,7 +117,19 @@ const WhitelistBlacklist = ({ state }) => {
               placeholder="Enter wallet address"
             />
           </div>
+          <div
+            style={{
+              color: "brown",
+              marginLeft: "130px",
+              marginBottom: "-49px",
+            }}
+          >
+            {errorMessage
+              ? "Please enter an valid ethereum address" : (walletStatus && !errorMessage) ? "Whitelisted"
+              : "Not Whitelisted"}
+          </div>
           <button
+            style={{ marginTop: "20px" }}
             type="submit"
             className="btn btn-secondary"
             disabled={!state.contract}

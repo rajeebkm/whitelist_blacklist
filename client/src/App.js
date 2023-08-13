@@ -16,6 +16,7 @@ function App() {
     signer: null,
     contract: null,
   });
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     if (window.ethereum) {
@@ -30,11 +31,10 @@ function App() {
     const { ethereum } = window;
     if (window.ethereum) {
       try {
-        const res = await window.ethereum
-          .request({
-            method: "eth_requestAccounts",
-          });
-        await accountChanged(res[0]);
+        const res = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        await accountChanged(res);
 
         window.ethereum.on("chainChanged", () => {
           window.location.reload();
@@ -64,16 +64,22 @@ function App() {
   };
 
   const accountChanged = async (newAccount) => {
-    setAccount(newAccount);
-    try {
-      const balance = await window.ethereum.request({
-        method: "eth_getBalance",
-        params: [newAccount.toString(), "latest"],
-      });
-      setBalance(ethers.utils.formatEther(balance));
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("There was a problem connecting to MetaMask");
+    setAccount(newAccount[0]);
+    if (newAccount.length > 0) {
+      try {
+        const balance = await window.ethereum.request({
+          method: "eth_getBalance",
+          params: [newAccount[0].toString(), "latest"],
+        });
+        setIsConnected(true);
+        setBalance(ethers.utils.formatEther(balance));
+      } catch (err) {
+        console.error(err);
+        setErrorMessage("There was a problem connecting to MetaMask");
+      }
+    } else {
+      setIsConnected(false);
+      setBalance(null);
     }
   };
 
@@ -81,25 +87,44 @@ function App() {
     setErrorMessage(null);
     setAccount(null);
     setBalance(null);
+    setIsConnected(false);
   };
 
   return (
     <div
       style={{ backgroundColor: "#EFEFEF", height: "100%", marginTop: "0px" }}
     >
-      <button
-        style={{ marginLeft: "1280px", marginTop: "8px" }}
-        className="block-button"
-        onClick={connectWallet}
-      >
-        Connect Wallet
-      </button>
-      <h6 style={{ marginLeft: "925px", marginTop: "20px" }}>
+      <div>
+        {isConnected ? (
+          <div>
+            {/* <p>Connected Wallet:</p> */}
+            <button
+              style={{
+                marginLeft: "1280px",
+                marginTop: "8px",
+                backgroundColor: "green",
+              }}
+              className="block-button"
+            >
+              Connected
+            </button>
+          </div>
+        ) : (
+          <button
+            style={{ marginLeft: "1280px", marginTop: "8px" }}
+            className="block-button"
+            onClick={connectWallet}
+          >
+            Connect Wallet
+          </button>
+        )}
+      </div>
+      <p style={{ marginLeft: "934px", marginTop: "5px" }}>
         Account: {account}
-      </h6>
-      <h6 style={{ marginLeft: "925px", marginTop: "8px" }}>
+      </p>
+      <p style={{ marginLeft: "934px", marginTop: "-20px" }}>
         ETH Balance: {balance}
-      </h6>
+      </p>
       <img
         src={logo}
         width="6%"
