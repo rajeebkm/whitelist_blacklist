@@ -7,6 +7,7 @@ const WhitelistBlacklist = ({ state }) => {
   const [processedArrayBlacklist, setProcessedArrayBlacklist] = useState([]);
   const [walletStatus, setWalletStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [enterIfScope, setEnterIfScope] = useState(false);
 
   const handleInputChangeWhitelist = (event) => {
     setInputValueWhitelist(event.target.value);
@@ -29,7 +30,6 @@ const WhitelistBlacklist = ({ state }) => {
   const whitelist = async (event) => {
     event.preventDefault();
     const { provider, signer, contract } = state;
-    // const amount = document.querySelector("#amountOfTokens").value;
     const addresses = processedArrayWhitelist;
     const transaction = await contract.whitelist(addresses);
     await transaction.wait();
@@ -40,7 +40,6 @@ const WhitelistBlacklist = ({ state }) => {
   const blacklist = async (event) => {
     event.preventDefault();
     const { provider, signer, contract } = state;
-    // const amount = document.querySelector("#amountOfTokens").value;
     const addresses = processedArrayBlacklist;
     const transaction = await contract.blacklist(addresses);
     await transaction.wait();
@@ -58,6 +57,7 @@ const WhitelistBlacklist = ({ state }) => {
       console.log(transaction);
       setWalletStatus(transaction);
       setErrorMessage(false);
+      setEnterIfScope(true);
       console.log("Transaction is done", transaction);
     } else {
       console.log("Please enter an valid ethereum address");
@@ -66,7 +66,10 @@ const WhitelistBlacklist = ({ state }) => {
   };
   return (
     <>
-      <div className="container-md" style={{ width: "50%", marginTop: "25px" }}>
+      <div
+        className="container-md"
+        style={{ width: "35%", marginTop: "25px", marginRight: "750px" }}
+      >
         <form onSubmit={whitelist}>
           <div className="mb-3">
             <label className="form-label">Addresses to whitelist</label>
@@ -87,7 +90,7 @@ const WhitelistBlacklist = ({ state }) => {
             Whitelist
           </button>
         </form>
-        <form style={{ marginTop: "10px" }} onSubmit={blacklist}>
+        <form style={{ marginTop: "60px" }} onSubmit={blacklist}>
           <div className="mb-3">
             <label className="form-label">Addresses to Blacklist</label>
             <input
@@ -107,7 +110,7 @@ const WhitelistBlacklist = ({ state }) => {
             Blacklist
           </button>
         </form>
-        <form style={{ marginTop: "15px" }} onSubmit={checkWalletStatus}>
+        <form style={{ marginTop: "60px" }} onSubmit={checkWalletStatus}>
           <div className="mb-3">
             <label className="form-label">Check Wallet Status</label>
             <input
@@ -120,16 +123,19 @@ const WhitelistBlacklist = ({ state }) => {
           <div
             style={{
               color: "brown",
-              marginLeft: "130px",
-              marginBottom: "-49px",
+              marginTop: "-10px",
             }}
           >
             {errorMessage
-              ? "Please enter an valid ethereum address" : (walletStatus && !errorMessage) ? "Whitelisted"
-              : "Not Whitelisted"}
+              ? "Please enter an valid ethereum address"
+              : !errorMessage && walletStatus
+              ? "Whitelisted"
+              : !errorMessage && !walletStatus && enterIfScope
+              ? "Not Whitelisted"
+              : " "}
           </div>
           <button
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: "5px" }}
             type="submit"
             className="btn btn-secondary"
             disabled={!state.contract}

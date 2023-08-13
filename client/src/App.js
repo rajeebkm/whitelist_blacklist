@@ -2,6 +2,7 @@ import abi from "./contracts/xalts.json";
 import React, { useState, useEffect } from "react";
 import PurchaseTokens from "./components/purchaseTokens.js";
 import WhitelistBlacklist from "./components/WhitelistBlacklist.js";
+import Interactions from "./components/Interactions.js";
 import logo from "./logo-main.png";
 import "./App.css";
 import Header from "./components/Header";
@@ -63,7 +64,9 @@ function App() {
         console.log(
           `Token balance of user ${await signer.getAddress()} is ${balanceOfTokens}`
         );
-        setBalanceXALTS(parseInt(balanceOfTokens)/ethers.utils.parseEther("1"));
+        setBalanceXALTS(
+          parseInt(balanceOfTokens) / ethers.utils.parseEther("1")
+        );
       } catch (err) {
         console.error(err);
         setErrorMessage("There was a problem connecting to MetaMask");
@@ -101,9 +104,7 @@ function App() {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#EFEFEF", height: "100%", marginTop: "0px" }}
-    >
+    <div className="body">
       <Header />
       <div>
         {isConnected ? (
@@ -121,7 +122,7 @@ function App() {
           </div>
         ) : (
           <button
-            style={{ marginLeft: "1280px", marginTop: "-55px" }}
+            style={{ marginLeft: "1280px", marginTop: "-58px" }}
             className="block-button"
             onClick={connectWallet}
           >
@@ -132,31 +133,21 @@ function App() {
       <p style={{ marginLeft: "810px", marginTop: "-40px", color: "white" }}>
         Account: {account}
       </p>
-      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white" }}>
+      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white", marginBottom: "15px" }}>
         ETH Balance: {balance}
       </p>
       <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white" }}>
         XALTS Balance: {balanceXALTS}
       </p>
-      {/* <img
-        src={logo}
-        width="6%"
-        height="6%"
-        style={{ marginLeft: "10px", marginTop: "0px" }}
-      /> */}
-      <h2
-        style={{
-          marginLeft: "406px",
-          color: "#2b1247",
-          marginTop: "0px",
-          fontSize: "35px",
-        }}
-      >
-        XALTS Token [Whitelist/Blacklist]
-      </h2>
-      <div className="container">
-        <WhitelistBlacklist state={state} />
-        <PurchaseTokens state={state} />
+      <div>
+        <h2 className="title">XALTS Token [Whitelist/Blacklist]</h2>
+      </div>
+      <div className="container" style={{ marginTop: "50px", marginLeft: "0px" }}>
+          <WhitelistBlacklist state={state} />
+          <PurchaseTokens state={state} />
+          <h4 style={{ marginTop: "50px", marginRight: "248px", float: "right", color: "blue" }}>Interactions with other wallet</h4>
+          <Interactions state={state} />
+          <p></p>
       </div>
       <Footer />
     </div>

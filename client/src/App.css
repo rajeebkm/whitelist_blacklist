@@ -38,11 +38,11 @@
 }
 
 .center-block {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-  }
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+}
 
 .block-button {
   background-color: #ff3700;
@@ -53,13 +53,14 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans",
+    sans-serif;
   font-size: 13px;
   font-weight: 600;
   line-height: 1.15385;
   margin: 0;
   outline: none;
-  padding: 8px .8em;
+  padding: 8px 0.8em;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -80,10 +81,87 @@
 }
 
 .block-button:focus {
-  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, 0.15);
 }
 
 .block-button:active {
   background-color: #0064bd;
   box-shadow: none;
 }
+
+/* Header.css */
+.header {
+  background-color: #2b1247;
+  color: #fff;
+  padding: 1rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header nav li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.header nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Footer.css */
+.footer {
+  background-color: #2b1247;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: #681b04;
+}
+
+.body {
+  height: 100%;
+   background: linear-gradient(10deg, #EE7752, #812f4f, #23A6D5, #1ca988);
+     animation: gradient 20s ease infinite; 
+      background-size: 500% 500%;
+  
+}
+@-webkit-keyframes gradient{
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+     background-position: 0% 50%;
+  }
+}
+@keyframes gradient{
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+     background-position: 0% 50%;
+  }
+}
+

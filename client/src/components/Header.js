@@ -1,6 +1,6 @@
 // Header.js
 import React from "react";
-import "./Header.css"; // Import your CSS file for styling if needed
+import "../App.css";
 import logo from "../logo-main.png";
 
 function Header() {

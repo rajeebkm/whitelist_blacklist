@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 const PurchaseTokens = ({ state }) => {
-  // const [balanceXALTS, setBalanceXALTS] = useState(null);
   const purchaseTokens = async (event) => {
     event.preventDefault();
     const { provider, signer, contract } = state;
@@ -27,25 +26,13 @@ const PurchaseTokens = ({ state }) => {
       `Token balance of user ${await signer.getAddress()} after purchase is ${balanceOfTokens}`
     );
   };
-  // const checkXALTSBalance = async (event) => {
-  //   event.preventDefault();
-  //   const { provider, signer, contract } = state;
-  //   const balanceOfTokens = await contract.balanceOf(
-  //     await signer.getAddress()
-  //   );
-  //   setBalanceXALTS(balanceOfTokens);
-  //   console.log(
-  //     `Token balance of user ${await signer.getAddress()} is ${balanceOfTokens}`
-  //   );
-
-  // };
   return (
     <>
-      <div className="container-md" style={{ width: "50%", marginTop: "25px" }}>
+      <div className="container-md" style={{ width: "40%", marginTop: "-510px", marginRight: "50px"}}>
         <form onSubmit={purchaseTokens}>
           <div className="mb-3">
             <label className="form-label">
-              Enter amount of tokens to purchase. Current price (1 XLTS = 0.0001
+              Enter amount of tokens. Price (1 XLTS = 0.0001
               ETH = ~ $ 0.18)
             </label>
             <input
