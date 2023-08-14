@@ -1,9 +1,10 @@
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
-import logo from "../transfer.avif";
+import React, { useState } from "react";
+// import logo from "../transfer.avif";
 
 const Interactions = ({ state }) => {
   const [inputValue, setInputValue] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [processedArray, setProcessedArray] = useState([]);
 
   const handleInputChange = (event) => {
@@ -17,8 +18,11 @@ const Interactions = ({ state }) => {
 
   const interactions = async (event) => {
     event.preventDefault();
-    const { provider, signer, contract } = state;
+    const { contract } = state;
     const wallet = processedArray;
+    const tx = await contract.isWhitelisted(wallet[0]);
+    console.log(tx);
+    setErrorMessage(true);
     const amount = document.querySelector("#amount").value;
     console.log("wallet:", wallet[0], "amount:", amount);
     const parsedAmount = ethers.utils.parseEther(amount);
@@ -74,6 +78,16 @@ const Interactions = ({ state }) => {
               id="amount"
               placeholder="Enter amount of XALTS tokens to transfer"
             />
+          </div>
+          <div
+            style={{
+              color: "brown",
+              marginTop: "-10px",
+            }}
+          >
+            {errorMessage
+              ? "Warning ! Recipient address is blacklisted. If you interact with this address, you will be blacklisted too."
+              : " "}
           </div>
           <button
             onClick={processInputToArray}

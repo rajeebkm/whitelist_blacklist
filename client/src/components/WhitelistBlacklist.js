@@ -1,13 +1,18 @@
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 const WhitelistBlacklist = ({ state }) => {
   const [inputValueWhitelist, setInputValueWhitelist] = useState("");
   const [inputValueBlacklist, setInputValueBlacklist] = useState("");
   const [processedArrayWhitelist, setProcessedArrayWhitelist] = useState([]);
   const [processedArrayBlacklist, setProcessedArrayBlacklist] = useState([]);
   const [walletStatus, setWalletStatus] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessageWhitelist, setErrorMessageWhitelist] = useState(false);
+  const [errorMessageBlacklist, setErrorMessageBlacklist] = useState(false);
+  const [errorMessageWalletStatus, setErrorMessageWalletStatus] =
+    useState(null);
   const [enterIfScope, setEnterIfScope] = useState(false);
+  const [enterIfScopeBlacklist, setEnterIfScopeBlacklist] = useState(false);
+  const [enterIfScopeWhitelist, setEnterIfScopeWhitelist] = useState(false);
 
   const handleInputChangeWhitelist = (event) => {
     setInputValueWhitelist(event.target.value);
@@ -29,39 +34,61 @@ const WhitelistBlacklist = ({ state }) => {
 
   const whitelist = async (event) => {
     event.preventDefault();
-    const { provider, signer, contract } = state;
-    const addresses = processedArrayWhitelist;
-    const transaction = await contract.whitelist(addresses);
-    await transaction.wait();
-    console.log(transaction);
-    console.log("Transaction is done", transaction);
+    const { signer, contract } = state;
+    const tx = await contract.owner();
+    console.log(tx);
+    console.log(await signer.getAddress());
+    const isTrue = (await signer.getAddress()) == tx;
+    console.log(isTrue);
+    if (isTrue) {
+      const addresses = processedArrayWhitelist;
+      const transaction = await contract.whitelist(addresses);
+      await transaction.wait();
+      console.log(transaction);
+      console.log("Transaction is done", transaction);
+    } else {
+      setErrorMessageWhitelist(true);
+      setEnterIfScopeWhitelist(true);
+      console.log(enterIfScopeWhitelist);
+      console.log(errorMessageWhitelist);
+    }
   };
 
   const blacklist = async (event) => {
     event.preventDefault();
-    const { provider, signer, contract } = state;
-    const addresses = processedArrayBlacklist;
-    const transaction = await contract.blacklist(addresses);
-    await transaction.wait();
-    console.log(transaction);
-    console.log("Transaction is done", transaction);
+    const { signer, contract } = state;
+    const tx = await contract.owner();
+    console.log(tx);
+    console.log(await signer.getAddress());
+    const isTrue = (await signer.getAddress()) == tx;
+    console.log(isTrue);
+    if (isTrue) {
+      const addresses = processedArrayBlacklist;
+      const transaction = await contract.blacklist(addresses);
+      await transaction.wait();
+      console.log(transaction);
+      console.log("Transaction is done", transaction);
+    } else {
+      setErrorMessageBlacklist(true);
+      setEnterIfScopeBlacklist(true);
+    }
   };
 
   const checkWalletStatus = async (event) => {
     event.preventDefault();
-    const { provider, signer, contract } = state;
+    const { contract } = state;
     const wallet = document.querySelector("#wallet").value;
     const isValidAddress = ethers.utils.isAddress(wallet);
     if (isValidAddress) {
       const transaction = await contract.isWhitelisted(wallet);
       console.log(transaction);
       setWalletStatus(transaction);
-      setErrorMessage(false);
+      setErrorMessageWalletStatus(false);
       setEnterIfScope(true);
       console.log("Transaction is done", transaction);
     } else {
       console.log("Please enter an valid ethereum address");
-      setErrorMessage(true);
+      setErrorMessageWalletStatus(true);
     }
   };
   return (
@@ -82,6 +109,13 @@ const WhitelistBlacklist = ({ state }) => {
               className="form-control"
               placeholder="Enter addresses to whitelist"
             />
+          </div>
+          <div style={{ color: "red" }}>
+            {!errorMessageWhitelist
+              ? " "
+              : errorMessageWhitelist && enterIfScopeWhitelist
+              ? "Only owner/issuer can blacklist."
+              : " "}
           </div>
           <button
             onClick={processInputToArrayWhitelist}
@@ -104,6 +138,13 @@ const WhitelistBlacklist = ({ state }) => {
               className="form-control"
               placeholder="Enter addresses to blacklist"
             />
+          </div>
+          <div style={{ color: "red" }}>
+            {!errorMessageBlacklist
+              ? " "
+              : errorMessageBlacklist && enterIfScopeBlacklist
+              ? "Only owner/issuer can blacklist."
+              : " "}
           </div>
           <button
             onClick={processInputToArrayBlacklist}
@@ -135,11 +176,11 @@ const WhitelistBlacklist = ({ state }) => {
               marginTop: "-10px",
             }}
           >
-            {errorMessage
+            {errorMessageWalletStatus
               ? "Please enter an valid ethereum address"
-              : !errorMessage && walletStatus
+              : !errorMessageWalletStatus && walletStatus
               ? "Whitelisted"
-              : !errorMessage && !walletStatus && enterIfScope
+              : !errorMessageWalletStatus && !walletStatus && enterIfScope
               ? "Not Whitelisted"
               : " "}
           </div>

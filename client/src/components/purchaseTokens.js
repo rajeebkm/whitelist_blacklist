@@ -1,8 +1,17 @@
 import { ethers } from "ethers";
+import PopupMessage from "./PopupMessage";
+import React, { useState, useEffect } from "react";
 const PurchaseTokens = ({ state }) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const purchaseTokens = async (event) => {
     event.preventDefault();
-    const { provider, signer, contract } = state;
+    const { signer, contract } = state;
+
+    const tx = await contract.isWhitelisted(await signer.getAddress());
+    console.log(tx);
+    setErrorMessage(true);
+
     const amount = document.querySelector("#amountOfTokens").value;
     console.log("Requested amount:", amount);
     const balanceOfTokensBefore = await contract.balanceOf(
@@ -25,7 +34,13 @@ const PurchaseTokens = ({ state }) => {
     console.log(
       `Token balance of user ${await signer.getAddress()} after purchase is ${balanceOfTokens}`
     );
+    setShowPopup(true);
   };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <>
       <div
@@ -44,6 +59,11 @@ const PurchaseTokens = ({ state }) => {
               placeholder="Enter amount"
             />
           </div>
+          <div style={{ color: "red" }}>
+            {!errorMessage
+              ? " "
+              : "Only whitelisted wallet can purchase XALTS tokens."}
+          </div>
           <button
             type="submit"
             className="btn btn-success"
@@ -51,6 +71,12 @@ const PurchaseTokens = ({ state }) => {
           >
             Purchase XALTS Token
           </button>
+          {showPopup && (
+            <PopupMessage
+              message="Purchase Successful"
+              onClose={handleClosePopup}
+            />
+          )}
         </form>
       </div>
       <p></p>

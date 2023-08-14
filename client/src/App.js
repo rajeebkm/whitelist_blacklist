@@ -3,16 +3,16 @@ import React, { useState, useEffect } from "react";
 import PurchaseTokens from "./components/purchaseTokens.js";
 import WhitelistBlacklist from "./components/WhitelistBlacklist.js";
 import Interactions from "./components/Interactions.js";
-import logo from "./logo-main.png";
 import metamask_logo from "./metamask-logo.png";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import { ethers } from "ethers";
+import PopupMessage from "./components/PopupMessage";
 const ethers = require("ethers");
 
 function App() {
   const [account, setAccount] = useState("Not Connected");
+  const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [balance, setBalance] = useState(null);
   const [state, setState] = useState({
@@ -29,6 +29,15 @@ function App() {
       window.ethereum.on("chainChanged", chainChanged);
     }
   }, []);
+
+  const handleLogin = () => {
+    // Logic for successful login
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   const connectWallet = async () => {
     const contractAddress = "0x09dcc35e2360f672D4E08C38cfE1A13A18Cf73C8";
@@ -116,7 +125,7 @@ function App() {
                 marginTop: "-55px",
                 backgroundColor: "green",
                 width: "120px",
-                height: "33px"
+                height: "33px",
               }}
               className="block-button"
             >
@@ -130,7 +139,12 @@ function App() {
           </div>
         ) : (
           <button
-            style={{ marginLeft: "1120px", marginTop: "-56px", width: "120px", height: "33px" }}
+            style={{
+              marginLeft: "1120px",
+              marginTop: "-56px",
+              width: "120px",
+              height: "33px",
+            }}
             className="block-button"
             onClick={connectWallet}
           >
