@@ -35,4 +35,4 @@ if (isValid) {
   console.log("❌ leaf is invalid, ", isValid);
 }
 
-// XALTS contract address: 0x09dcc35e2360f672D4E08C38cfE1A13A18Cf73C8 [Sepolia Network] (https://sepolia.etherscan.io/address/0x09dcc35e2360f672D4E08C38cfE1A13A18Cf73C8)
+// XALTS contract address: 0x57C3ECDD9139B421F45F1224BfD39AACed8A58aB [Sepolia Network] (https://sepolia.etherscan.io/address/0x57C3ECDD9139B421F45F1224BfD39AACed8A58aB)

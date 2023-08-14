@@ -41,8 +41,8 @@
       ]
     },
     "/Users/h-02/Desktop/app/whitelistDapp/contracts/XALTS.sol": {
-      "lastModificationDate": 1691879514288,
-      "contentHash": "73d76f0a9738c12ea4fdf79af5fd5788",
+      "lastModificationDate": 1691989812454,
+      "contentHash": "c7b677d91628123f946cbc847e47f998",
       "sourceName": "contracts/XALTS.sol",
       "solcConfig": {
         "version": "0.8.20",

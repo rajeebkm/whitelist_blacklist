@@ -170,6 +170,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
             address[] memory peers = interactions[_wallet[i]];
             for (uint256 j = 0; j < peers.length; j++) {
                 isBlacklisted[peers[i]] = false;
+                isWhitelisted[peers[i]] = true;
                 emit WalletWhitelisted(peers[i]);
             }
         }
@@ -185,6 +186,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
             address[] memory peers = interactions[_wallet[i]];
             for (uint256 j = 0; j < peers.length; j++) {
                 isBlacklisted[peers[i]] = true;
+                isWhitelisted[peers[i]] = false;
                 emit WalletBlacklisted(peers[i]);
             }
         }  
@@ -221,6 +223,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
         interactions[to].push(sender);
         if(isBlacklisted[to] == true) {
             isBlacklisted[sender] == true;
+            isWhitelisted[sender] == false;
             return true;
         }
         require(isWhitelisted[sender], "Sender is not whitelisted");
@@ -249,6 +252,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
         require(isWhitelisted[sender] == true, "Approver is blacklisted");
         if(isBlacklisted[spender] == true) {
             isBlacklisted[sender] == true;
+            isWhitelisted[sender] == false;
             return true;
         }
         _approve(sender, spender, value);
@@ -268,6 +272,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
         interactions[to].push(spender);
         if(isBlacklisted[to] == true) {
             isBlacklisted[spender] == true;
+            isWhitelisted[spender] == false;
             return true;
         }
         _spendAllowance(from, spender, value);
@@ -288,6 +293,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
         require(isWhitelisted[sender] == true, "Sender is blacklisted");
         if(isBlacklisted[spender] == true) {
             isBlacklisted[sender] == true;
+            isWhitelisted[sender] == false;
             return true;
         }
         _approve(sender, spender, allowance(owner, spender) + addedValue);
@@ -313,6 +319,7 @@ contract XALTS is Context, IERC20, IERC20Metadata, IERC20Errors {
         require(isWhitelisted[sender] == true, "Sender is blacklisted");
         if(isBlacklisted[spender] == true) {
             isBlacklisted[sender] == true;
+            isWhitelisted[sender] == false;
             return true;
         }
         uint256 currentAllowance = allowance(sender, spender);
