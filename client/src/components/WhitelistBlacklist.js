@@ -181,7 +181,7 @@ const WhitelistBlacklist = ({ state }) => {
               : !errorMessageWalletStatus && walletStatus
               ? "Whitelisted"
               : !errorMessageWalletStatus && !walletStatus && enterIfScope
-              ? "Not Whitelisted"
+              ? "Not Whitelisted/Blacklisted"
               : " "}
           </div>
           <button

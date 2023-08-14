@@ -40,7 +40,7 @@ function App() {
   };
 
   const connectWallet = async () => {
-    const contractAddress = "0x09dcc35e2360f672D4E08C38cfE1A13A18Cf73C8";
+    const contractAddress = "0x57C3ECDD9139B421F45F1224BfD39AACed8A58aB"; // Tested already: "0x09dcc35e2360f672D4E08C38cfE1A13A18Cf73C8";
     const contractABI = abi.abi;
     const { ethereum } = window;
     if (window.ethereum) {

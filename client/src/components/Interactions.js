@@ -6,6 +6,7 @@ const Interactions = ({ state }) => {
   const [inputValue, setInputValue] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [processedArray, setProcessedArray] = useState([]);
+  const [enterIfScope, setEnterIfScope] = useState(false);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -22,15 +23,27 @@ const Interactions = ({ state }) => {
     const wallet = processedArray;
     const tx = await contract.isWhitelisted(wallet[0]);
     console.log(tx);
-    setErrorMessage(true);
-    const amount = document.querySelector("#amount").value;
-    console.log("wallet:", wallet[0], "amount:", amount);
-    const parsedAmount = ethers.utils.parseEther(amount);
-    console.log("parsedAmount:", parsedAmount);
-    const transaction = await contract.transfer(wallet[0], parsedAmount);
-    await transaction.wait();
-    console.log(transaction);
-    console.log("Transaction is done", transaction);
+    if (tx) {
+      const amount = document.querySelector("#amount").value;
+      console.log("wallet:", wallet[0], "amount:", amount);
+      const parsedAmount = ethers.utils.parseEther(amount);
+      console.log("parsedAmount:", parsedAmount);
+      const transaction = await contract.transfer(wallet[0], parsedAmount);
+      await transaction.wait();
+      console.log(transaction);
+      console.log("Transaction is done", transaction);
+    } else {
+      setErrorMessage(true);
+      setEnterIfScope(true);
+      const amount = document.querySelector("#amount").value;
+      console.log("wallet:", wallet[0], "amount:", amount);
+      const parsedAmount = ethers.utils.parseEther(amount);
+      console.log("parsedAmount:", parsedAmount);
+      const transaction = await contract.transfer(wallet[0], parsedAmount);
+      await transaction.wait();
+      console.log(transaction);
+      console.log("Transaction is done", transaction);
+    }
   };
 
   return (
@@ -85,7 +98,9 @@ const Interactions = ({ state }) => {
               marginTop: "-10px",
             }}
           >
-            {errorMessage
+            {!errorMessage
+              ? " "
+              : errorMessage && enterIfScope
               ? "Warning ! Recipient address is blacklisted. If you interact with this address, you will be blacklisted too."
               : " "}
           </div>
