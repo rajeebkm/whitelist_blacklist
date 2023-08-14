@@ -45,7 +45,7 @@ const PurchaseTokens = ({ state }) => {
     <>
       <div
         className="container-md"
-        style={{ width: "39%", marginTop: "-455px", marginLeft: "675px" }}
+        style={{ width: "39%", marginTop: "-455px", marginLeft: "750px" }}
       >
         <form onSubmit={purchaseTokens}>
           <div className="mb-3">

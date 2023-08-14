@@ -121,7 +121,7 @@ function App() {
           <div>
             <button
               style={{
-                marginLeft: "1120px",
+                marginLeft: "1290px",
                 marginTop: "-55px",
                 backgroundColor: "green",
                 width: "120px",
@@ -140,7 +140,7 @@ function App() {
         ) : (
           <button
             style={{
-              marginLeft: "1120px",
+              marginLeft: "1290px",
               marginTop: "-56px",
               width: "120px",
               height: "33px",
@@ -154,7 +154,7 @@ function App() {
       </div>
       <p
         style={{
-          marginLeft: "750px",
+          marginLeft: "900px",
           marginTop: "-33px",
           color: "white",
           fontSize: "12px",
@@ -164,7 +164,7 @@ function App() {
       </p>
       <p
         style={{
-          marginLeft: "750px",
+          marginLeft: "900px",
           marginTop: "-20px",
           color: "white",
           marginBottom: "15px",
@@ -175,7 +175,7 @@ function App() {
       </p>
       <p
         style={{
-          marginLeft: "750px",
+          marginLeft: "900px",
           marginTop: "-20px",
           color: "white",
           fontSize: "12px",

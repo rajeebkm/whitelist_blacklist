@@ -53,8 +53,8 @@ const Interactions = ({ state }) => {
         style={{
           width: "39%",
           marginTop: "95px",
-          marginLeft: "675px",
-          marginBottom: "35px",
+          marginLeft: "750px",
+          marginBottom: "130.5px",
         }}
       >
         {/* <img

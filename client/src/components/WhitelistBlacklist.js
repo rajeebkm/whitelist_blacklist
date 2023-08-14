@@ -95,7 +95,7 @@ const WhitelistBlacklist = ({ state }) => {
     <>
       <div
         className="container-md"
-        style={{ width: "39%", marginTop: "25px", marginRight: "580px" }}
+        style={{ width: "39%", marginTop: "25px", marginRight: "650px" }}
       >
         <form onSubmit={whitelist}>
           <div className="mb-3">
