@@ -94,6 +94,7 @@
   background-color: #2b1247;
   color: #fff;
   padding: 1rem;
+  /* height: 75px; */
 }
 
 .header h1 {
@@ -128,6 +129,7 @@
   color: #fff;
   padding: 1rem;
   text-align: center;
+  height: 51px;
 }
 
 .title {
@@ -164,4 +166,26 @@
      background-position: 0% 50%;
   }
 }
+/* WalletButton.css */
+
+.wallet-button {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
 

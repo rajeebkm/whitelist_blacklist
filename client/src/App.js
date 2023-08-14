@@ -4,6 +4,7 @@ import PurchaseTokens from "./components/purchaseTokens.js";
 import WhitelistBlacklist from "./components/WhitelistBlacklist.js";
 import Interactions from "./components/Interactions.js";
 import logo from "./logo-main.png";
+import metamask_logo from "./metamask-logo.png";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -111,18 +112,25 @@ function App() {
           <div>
             <button
               style={{
-                marginLeft: "1298px",
+                marginLeft: "1120px",
                 marginTop: "-55px",
                 backgroundColor: "green",
+                width: "120px",
+                height: "33px"
               }}
               className="block-button"
             >
+              <img
+                src={metamask_logo}
+                alt="Wallet Logo"
+                className="wallet-logo"
+              />
               Connected
             </button>
           </div>
         ) : (
           <button
-            style={{ marginLeft: "1280px", marginTop: "-58px" }}
+            style={{ marginLeft: "1120px", marginTop: "-56px", width: "120px", height: "33px" }}
             className="block-button"
             onClick={connectWallet}
           >
@@ -130,24 +138,57 @@ function App() {
           </button>
         )}
       </div>
-      <p style={{ marginLeft: "810px", marginTop: "-40px", color: "white" }}>
+      <p
+        style={{
+          marginLeft: "750px",
+          marginTop: "-33px",
+          color: "white",
+          fontSize: "12px",
+        }}
+      >
         Account: {account}
       </p>
-      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white", marginBottom: "15px" }}>
+      <p
+        style={{
+          marginLeft: "750px",
+          marginTop: "-20px",
+          color: "white",
+          marginBottom: "15px",
+          fontSize: "12px",
+        }}
+      >
         ETH Balance: {balance}
       </p>
-      <p style={{ marginLeft: "810px", marginTop: "-20px", color: "white" }}>
+      <p
+        style={{
+          marginLeft: "750px",
+          marginTop: "-20px",
+          color: "white",
+          fontSize: "12px",
+        }}
+      >
         XALTS Balance: {balanceXALTS}
       </p>
       <div>
         <h2 className="title">XALTS Token [Whitelist/Blacklist]</h2>
       </div>
-      <div className="container" style={{ marginTop: "50px", marginLeft: "0px" }}>
-          <WhitelistBlacklist state={state} />
-          <PurchaseTokens state={state} />
-          <h4 style={{ marginTop: "50px", marginRight: "248px", float: "right", color: "blue" }}>Interactions with other wallet</h4>
-          <Interactions state={state} />
-          <p></p>
+      <div
+        className="container"
+        style={{ marginTop: "35px", marginLeft: "0px" }}
+      >
+        <WhitelistBlacklist state={state} />
+        <PurchaseTokens state={state} />
+        {/* <h4
+          style={{
+            marginTop: "55px",
+            marginLeft: "675px",
+            color: "blue",
+          }}
+        >
+          Interactions with other wallet
+        </h4> */}
+        <Interactions state={state} />
+        <p></p>
       </div>
       <Footer />
     </div>

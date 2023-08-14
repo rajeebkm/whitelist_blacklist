@@ -34,36 +34,40 @@ const Interactions = ({ state }) => {
       <div
         className="container-md"
         style={{
-          width: "40%",
-          marginTop: "120px",
-          marginRight: "50px",
-          marginBottom: "63px",
+          width: "39%",
+          marginTop: "95px",
+          marginLeft: "675px",
+          marginBottom: "35px",
         }}
       >
-        <img
+        {/* <img
           src={logo}
           width="15%"
           height="30%"
           style={{
-            marginLeft: "370px",
-            marginTop: "-57px",
+            marginLeft: "348px",
+            marginTop: "-15px",
             marginBottom: "0px",
           }}
-        />
+        /> */}
         <form onSubmit={interactions}>
           <div className="mb-3">
-            <label className="form-label">Wallet address to transfer</label>
+            <label className="form-label" style={{ fontSize: "14px" }}>
+              Wallet address to transfer
+            </label>
             <input
               type="text"
-                value={inputValue}
-                onChange={handleInputChange}
+              value={inputValue}
+              onChange={handleInputChange}
               className="form-control"
               id="wallet"
               placeholder="Enter wallet addresses to transfer"
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Amount of XALTS tokens</label>
+            <label className="form-label" style={{ fontSize: "14px" }}>
+              Amount of XALTS tokens
+            </label>
             <input
               type="text"
               className="form-control"

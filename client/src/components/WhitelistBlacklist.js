@@ -68,11 +68,13 @@ const WhitelistBlacklist = ({ state }) => {
     <>
       <div
         className="container-md"
-        style={{ width: "35%", marginTop: "25px", marginRight: "750px" }}
+        style={{ width: "39%", marginTop: "25px", marginRight: "580px" }}
       >
         <form onSubmit={whitelist}>
           <div className="mb-3">
-            <label className="form-label">Addresses to whitelist</label>
+            <label className="form-label" style={{ fontSize: "14px" }}>
+              Addresses to whitelist
+            </label>
             <input
               type="text"
               value={inputValueWhitelist}
@@ -90,9 +92,11 @@ const WhitelistBlacklist = ({ state }) => {
             Whitelist
           </button>
         </form>
-        <form style={{ marginTop: "60px" }} onSubmit={blacklist}>
+        <form style={{ marginTop: "30px" }} onSubmit={blacklist}>
           <div className="mb-3">
-            <label className="form-label">Addresses to Blacklist</label>
+            <label className="form-label" style={{ fontSize: "14px" }}>
+              Addresses to Blacklist
+            </label>
             <input
               type="text"
               value={inputValueBlacklist}
@@ -110,9 +114,14 @@ const WhitelistBlacklist = ({ state }) => {
             Blacklist
           </button>
         </form>
-        <form style={{ marginTop: "60px" }} onSubmit={checkWalletStatus}>
+        <form
+          style={{ marginTop: "30px", marginBottom: "30px" }}
+          onSubmit={checkWalletStatus}
+        >
           <div className="mb-3">
-            <label className="form-label">Check Wallet Status</label>
+            <label className="form-label" style={{ fontSize: "14px" }}>
+              Check Wallet Status
+            </label>
             <input
               type="text"
               className="form-control"
