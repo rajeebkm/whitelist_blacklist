@@ -27,9 +27,9 @@ async function main() {
     walletAddresses,
   ]);
 
-  console.log(`XALTS Token contract deployed to ${xalts.target}`);
+  await xalts.deployTransaction.wait();
 
-  // console.log("XALTS address:", await xalts.getAddress());
+  console.log("XALTS address:", xalts.address);
 }
 
 main()
