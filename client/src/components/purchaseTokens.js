@@ -50,7 +50,7 @@ const PurchaseTokens = ({ state }) => {
         <form onSubmit={purchaseTokens}>
           <div className="mb-3">
             <label className="form-label" style={{ fontSize: "14px" }}>
-              Enter amount of tokens. Price (1 XLTS = 0.0001 ETH = ~ $ 0.18)
+              Enter amount of tokens. Price (1 XALTS = 0.0001 ETH = ~ $ 0.18)
             </label>
             <input
               type="text"
