@@ -1,5 +1,5 @@
 import "@nomicfoundation/hardhat-toolbox";
-require("dotenv").config();
+require("dotenv").config({ path: "./envs/.env" });
 // import "@nomiclabs/hardhat-ethers";
 // import "@nomicfoundation/hardhat-chai-matchers";
 // import "@nomicfoundation/hardhat-ethers";
